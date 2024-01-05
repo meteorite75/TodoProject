@@ -7,6 +7,7 @@ from rest_framework import status
 from rest_framework.decorators import api_view
 from rest_framework.views import APIView
 from rest_framework import generics, mixins
+from rest_framework import viewsets
 
 
 # region funktion base view
@@ -47,8 +48,7 @@ def todo_detail_view(request: Request, todo_id: int):
         todo.delete()
         return Response(None, status.HTTP_204_NO_CONTENT)
 
-# endregion
-    
+# endregion   
     
 # region class based view
 
@@ -95,7 +95,6 @@ class TodosDetailApiView(APIView):
 
 # endregion
 
-
 # region mixins
 
 class TodosListMixinApiView(mixins.ListModelMixin, mixins.CreateModelMixin, generics.GenericAPIView):
@@ -131,6 +130,14 @@ class TodosGenericsApiView(generics.ListCreateAPIView):
     serializer_class = TodoSerializer
     
 class TodoGenericsDetailView(generics.RetrieveUpdateDestroyAPIView):
+    queryset = Todo.objects.order_by('priority').all()
+    serializer_class = TodoSerializer
+
+# endregion
+
+# region viewsets
+
+class TodosViewsetApiview(viewsets.ModelViewSet):
     queryset = Todo.objects.order_by('priority').all()
     serializer_class = TodoSerializer
 
