@@ -9,6 +9,7 @@ from rest_framework.views import APIView
 from rest_framework import generics, mixins
 from rest_framework import viewsets
 from django.contrib.auth import get_user_model
+from drf_spectacular.utils import extend_schema
 
 User = get_user_model()
 
@@ -55,6 +56,11 @@ def todo_detail_view(request: Request, todo_id: int):
 # region class based view
 
 class TodosListApiView(APIView):
+    @extend_schema(
+        request=TodoSerializer,
+        responses={201: TodoSerializer},
+        description='this api is used for get all todos list'
+    )
     def get(self, request: Request):
         todos = Todo.objects.order_by('priority').all()
         todo_serializer = TodoSerializer(todos,many=True)
