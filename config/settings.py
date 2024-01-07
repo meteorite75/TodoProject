@@ -138,10 +138,14 @@ REST_FRAMEWORK = {
     'PAGE_SIZE': 2, 
     
     # from rest_framework_simplejwt.authentication import JWTAuthentication
-    'DEFAULT_AUTHENTICATION_CLASSES': ['rest_framework_simplejwt.authentication.JWTAuthentication',],
+    'DEFAULT_AUTHENTICATION_CLASSES': [
+        #'rest_framework_simplejwt.authentication.JWTAuthentication',
+        ],
     
     # from rest_framework.permissions import IsAuthenticated
-    'DEFAULT_PERMISSION_CLASSES': ['rest_framework.permissions.IsAuthenticated'],
+    'DEFAULT_PERMISSION_CLASSES': [
+        #'rest_framework.permissions.IsAuthenticated'
+        ],
 }
 
 SIMPLE_JWT = {
